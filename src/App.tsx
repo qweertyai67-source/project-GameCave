@@ -25,8 +25,8 @@ import {
   Zap,
 } from 'lucide-react'
 import { FormEvent, useEffect, useMemo, useRef, useState } from 'react'
+import { clubConfig } from './club.config'
 import {
-  TWO_GIS_URL,
   TOTAL_GAMING_SEATS,
   branches,
   durationOptions,
@@ -96,15 +96,15 @@ function Header() {
 
   return (
     <header className="site-header">
-      <a className="brand" href="#club" aria-label="Gamer Cave — на главную">
-        <span className="brand-mark" aria-hidden="true">GC</span>
-        <span className="brand-word"><b>Gamer</b> Cave<small>Краснодар</small></span>
+      <a className="brand" href="#club" aria-label={`${clubConfig.name} — на главную`}>
+        <span className="brand-mark" aria-hidden="true">{clubConfig.initials}</span>
+        <span className="brand-word"><b>{clubConfig.brandPrimary}</b> {clubConfig.brandSecondary}<small>{clubConfig.city}</small></span>
       </a>
       <nav className="desktop-nav" aria-label="Основная навигация">
         {navItems.map(([label, id]) => <a key={id} href={`#${id}`}>{label}</a>)}
       </nav>
       <div className="header-actions">
-        <span className="open-status"><i /> Открыто 24/7</span>
+        <span className="open-status"><i /> Открыто {clubConfig.scheduleShort}</span>
         <button className="button button-compact" onClick={() => navigate('booking')}>Забронировать</button>
         <button className="menu-button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? 'Закрыть меню' : 'Открыть меню'}>
           {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
@@ -121,13 +121,13 @@ function Hero() {
   return (
     <section id="club" className="hero section-shell">
       <div className="hero-media" aria-hidden="true">
-        <img src="./photos/main-hall.png" alt="" width="919" height="645" fetchPriority="high" />
+        <img src={clubConfig.hero.image} alt="" width={clubConfig.hero.imageWidth} height={clubConfig.hero.imageHeight} fetchPriority="high" />
         <div className="hero-scan" />
       </div>
       <div className="hero-copy reveal-sequence">
-        <p className="eyebrow"><span>01</span> Компьютерный клуб · Краснодар</p>
-        <h1>Твоя игра<br />начинается <em>глубже</em></h1>
-        <p className="hero-lead">Игровое пространство с характером: мощные станции, приватные зоны и круглосуточный доступ.</p>
+        <p className="eyebrow"><span>01</span> {clubConfig.category} · {clubConfig.city}</p>
+        <h1>{clubConfig.hero.lineOne}<br />{clubConfig.hero.lineTwo} <em>{clubConfig.hero.accent}</em></h1>
+        <p className="hero-lead">{clubConfig.hero.lead}</p>
         <div className="hero-buttons">
           <a className="button" href="#booking">Выбрать место <ArrowDown size={18} aria-hidden="true" /></a>
           <a className="button button-ghost" href="#zones">Посмотреть зоны</a>
@@ -313,7 +313,7 @@ function Promotions() {
 function Advantages() {
   return (
     <section className="content-section section-shell" aria-labelledby="advantages-title">
-      <SectionHeading index="05" eyebrow="Почему Gamer Cave" title="Всё для длинной сессии" titleId="advantages-title" />
+      <SectionHeading index="05" eyebrow={`Почему ${clubConfig.name}`} title="Всё для длинной сессии" titleId="advantages-title" />
       <div className="perks-grid">
         {perks.map(([icon, title, text], index) => {
           const Icon = iconMap[icon]
@@ -344,7 +344,7 @@ function Gallery() {
 
   return (
     <section id="gallery" className="content-section section-shell">
-      <SectionHeading index="06" eyebrow="Пространство" title="Загляни внутрь" text="Настоящие фотографии Gamer Cave: игровые места, оборудование, фирменное освещение и входная зона клуба." />
+      <SectionHeading index="06" eyebrow="Пространство" title="Загляни внутрь" text={`Настоящие фотографии ${clubConfig.name}: игровые места, оборудование, фирменное освещение и входная зона клуба.`} />
       <div className="gallery-grid">
         {gallery.map((item, index) => <button key={item.src} className={`gallery-item gallery-item-${index + 1}`} onClick={() => setActive(index)}><img src={item.src} alt={item.title} width="1200" height="900" loading="lazy" /><span><b>{item.title}</b><small>{item.note}</small></span><ArrowUpRight aria-hidden="true" /></button>)}
       </div>
@@ -362,7 +362,7 @@ function Reviews() {
       <div className="review-rail" ref={rail}>
         {reviews.map((review, index) => <article key={review.name + index}><div className="review-top"><span>0{index + 1}</span><div aria-label="5 из 5">★★★★★</div></div><blockquote>«{review.text}»</blockquote><footer><b>{review.name}</b><span>{review.tag}</span></footer></article>)}
       </div>
-      <div className="review-controls section-shell"><div><button className="icon-button" onClick={() => move(-1)} aria-label="Отзывы назад"><ArrowLeft aria-hidden="true" /></button><button className="icon-button" onClick={() => move(1)} aria-label="Отзывы вперёд"><ArrowRight aria-hidden="true" /></button></div><a className="text-link" href={TWO_GIS_URL} target="_blank" rel="noreferrer">Смотреть карточку в 2ГИС <ArrowUpRight size={17} aria-hidden="true" /></a></div>
+      <div className="review-controls section-shell"><div><button className="icon-button" onClick={() => move(-1)} aria-label="Отзывы назад"><ArrowLeft aria-hidden="true" /></button><button className="icon-button" onClick={() => move(1)} aria-label="Отзывы вперёд"><ArrowRight aria-hidden="true" /></button></div><a className="text-link" href={clubConfig.links.twoGis} target="_blank" rel="noreferrer">Смотреть карточку в 2ГИС <ArrowUpRight size={17} aria-hidden="true" /></a></div>
     </section>
   )
 }
@@ -382,15 +382,15 @@ function Faq() {
 function Contacts() {
   return (
     <section id="contacts" className="contact-section section-shell">
-      <div className="contact-map" aria-label="Стилизованная схема расположения Gamer Cave на Карасунской улице"><div className="map-grid" /><div className="map-road road-one">Карасунская ул.</div><div className="map-road road-two">Центр Краснодара</div><div className="map-pin"><span>GC</span><b>Gamer Cave</b><small>Карасунская, 81</small></div></div>
-      <div className="contact-copy"><p className="eyebrow"><span>08</span> Контакты</p><h2>Спускайся<br />в <em>Gamer Cave</em></h2><dl><div><dt><MapPin aria-hidden="true" /> Адрес</dt><dd>Краснодар, ул. Карасунская, 81</dd></div><div><dt><Clock3 aria-hidden="true" /> Режим</dt><dd>Круглосуточно, ежедневно</dd></div><div><dt><Phone aria-hidden="true" /> Телефон</dt><dd>Уточняется перед публикацией</dd></div></dl><div className="contact-actions"><a className="button" href={TWO_GIS_URL} target="_blank" rel="noreferrer">Открыть в 2ГИС <ArrowUpRight size={18} aria-hidden="true" /></a><button className="button button-ghost" disabled title="Номер телефона требует подтверждения">Позвонить</button></div></div>
+      <div className="contact-map" aria-label={`Стилизованная схема расположения ${clubConfig.name}`}><div className="map-grid" /><div className="map-road road-one">{clubConfig.addressShort}</div><div className="map-road road-two">{clubConfig.districtLabel}</div><div className="map-pin"><span>{clubConfig.initials}</span><b>{clubConfig.name}</b><small>{clubConfig.addressShort}</small></div></div>
+      <div className="contact-copy"><p className="eyebrow"><span>08</span> Контакты</p><h2>Спускайся<br />в <em>{clubConfig.name}</em></h2><dl><div><dt><MapPin aria-hidden="true" /> Адрес</dt><dd>{clubConfig.addressFull}</dd></div><div><dt><Clock3 aria-hidden="true" /> Режим</dt><dd>{clubConfig.scheduleFull}</dd></div><div><dt><Phone aria-hidden="true" /> Телефон</dt><dd>{clubConfig.phoneLabel}</dd></div></dl><div className="contact-actions"><a className="button" href={clubConfig.links.twoGis} target="_blank" rel="noreferrer">Открыть в 2ГИС <ArrowUpRight size={18} aria-hidden="true" /></a><a className={`button button-ghost ${clubConfig.phoneHref ? '' : 'is-disabled'}`} href={clubConfig.phoneHref ?? undefined} aria-disabled={!clubConfig.phoneHref} title={clubConfig.phoneHref ? undefined : 'Номер телефона требует подтверждения'}>Позвонить</a></div></div>
     </section>
   )
 }
 
 function Footer({ openLegal }: { openLegal: (type: DialogType) => void }) {
   return (
-    <footer className="footer section-shell"><div className="footer-main"><div className="brand footer-brand"><span className="brand-mark">GC</span><span className="brand-word"><b>Gamer</b> Cave<small>Играй глубже</small></span></div><p>Демонстрационный сайт компьютерного клуба. Бронирование, цены и часть контента показаны как концепт.</p><a className="button" href="#booking">Забронировать</a></div><div className="footer-grid"><nav aria-label="Навигация в подвале">{navItems.slice(0, 6).map(([label, id]) => <a key={id} href={`#${id}`}>{label}</a>)}</nav><div><b>Соцсети</b><span>Ссылки будут добавлены после подтверждения</span><a href={TWO_GIS_URL} target="_blank" rel="noreferrer">2ГИС <ArrowUpRight size={14} aria-hidden="true" /></a></div><div><b>Документы</b><button onClick={() => openLegal('privacy')}>Политика конфиденциальности</button><button onClick={() => openLegal('terms')}>Пользовательское соглашение</button></div></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Gamer Cave · Демонстрационный макет</span><button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Наверх <ArrowUpRight size={14} aria-hidden="true" /></button></div></footer>
+    <footer className="footer section-shell"><div className="footer-main"><div className="brand footer-brand"><span className="brand-mark">{clubConfig.initials}</span><span className="brand-word"><b>{clubConfig.brandPrimary}</b> {clubConfig.brandSecondary}<small>{clubConfig.slogan}</small></span></div><p>Демонстрационный сайт компьютерного клуба. Бронирование, цены и часть контента показаны как концепт.</p><a className="button" href="#booking">Забронировать</a></div><div className="footer-grid"><nav aria-label="Навигация в подвале">{navItems.slice(0, 6).map(([label, id]) => <a key={id} href={`#${id}`}>{label}</a>)}</nav><div><b>Соцсети</b><span>Ссылки будут добавлены после подтверждения</span><a href={clubConfig.links.twoGis} target="_blank" rel="noreferrer">2ГИС <ArrowUpRight size={14} aria-hidden="true" /></a></div><div><b>Документы</b><button onClick={() => openLegal('privacy')}>Политика конфиденциальности</button><button onClick={() => openLegal('terms')}>Пользовательское соглашение</button></div></div><div className="footer-bottom"><span>© {new Date().getFullYear()} {clubConfig.name} · Демонстрационный макет</span><button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Наверх <ArrowUpRight size={14} aria-hidden="true" /></button></div></footer>
   )
 }
 

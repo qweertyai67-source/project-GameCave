@@ -1,6 +1,6 @@
-export type ZoneId = 'standard' | 'vip' | 'team'
+import { assetUrl, clubConfig } from './club.config'
 
-const assetUrl = (path: string) => `./${path}`
+export type ZoneId = 'standard' | 'vip' | 'team'
 
 export const ZONE_CAPACITIES: Record<ZoneId, number> = {
   standard: 20,
@@ -42,7 +42,7 @@ export type Tariff = {
 }
 
 export const branches = [
-  { id: 'karasunskaya', name: 'Карасунская, 81', note: 'Основная локация' },
+  { id: 'karasunskaya', name: clubConfig.addressShort, note: 'Основная локация' },
   { id: 'another', name: 'Другой филиал', note: 'Демонстрационный выбор' },
 ] as const
 
@@ -118,16 +118,16 @@ export const perks = [
 ] as const
 
 export const gallery = [
-  { src: assetUrl('photos/green-corridor.png'), title: 'Зелёный коридор', note: 'Фирменное освещение Gamer Cave' },
+  { src: assetUrl('photos/green-corridor.png'), title: 'Зелёный коридор', note: `Фирменное освещение ${clubConfig.name}` },
   { src: assetUrl('photos/main-hall.png'), title: 'Главный зал', note: 'Реальная игровая зона клуба' },
   { src: assetUrl('photos/standard-zone.png'), title: 'Игровые места', note: 'Станции Standard в клубе' },
-  { src: assetUrl('photos/exterior.png'), title: 'Фасад клуба', note: 'Вход в Gamer Cave' },
+  { src: assetUrl('photos/exterior.png'), title: 'Фасад клуба', note: `Вход в ${clubConfig.name}` },
   { src: assetUrl('photos/pc-closeup.png'), title: 'Игровая станция', note: 'Комплектующие с RGB-подсветкой' },
-  { src: assetUrl('photos/pc-row.png'), title: 'Ряд компьютеров', note: 'Системные блоки Gamer Cave' },
+  { src: assetUrl('photos/pc-row.png'), title: 'Ряд компьютеров', note: `Системные блоки ${clubConfig.name}` },
   { src: assetUrl('photos/reception-logo.png'), title: 'Фирменный стиль', note: 'Логотип в интерьере клуба' },
   { src: assetUrl('photos/branded-zone.png'), title: 'Бренд-зона', note: 'Места рядом с фирменной стеной' },
   { src: assetUrl('photos/dark-hall.png'), title: 'Тёмный зал', note: 'Атмосферная игровая зона' },
-  { src: assetUrl('photos/entrance-logo.png'), title: 'Входная зона', note: 'Фирменная навигация Gamer Cave' },
+  { src: assetUrl('photos/entrance-logo.png'), title: 'Входная зона', note: `Фирменная навигация ${clubConfig.name}` },
 ]
 
 export const reviews = [
@@ -141,9 +141,9 @@ export const reviews = [
 export const faqs = [
   ['Как забронировать место?', 'Выберите филиал, дату, время, продолжительность, зону и свободное место. Затем оставьте имя и телефон в демонстрационной форме подтверждения.'],
   ['Можно ли прийти без бронирования?', 'В демонстрационной версии предполагается, что можно, если есть свободные места. Перед публикацией условие нужно подтвердить у клуба.'],
-  ['Работает ли клуб ночью?', 'Да, согласно исходным данным Gamer Cave работает круглосуточно.'],
+  ['Работает ли клуб ночью?', `Да, согласно исходным данным ${clubConfig.name} работает круглосуточно.`],
   ['Какие документы могут понадобиться?', 'Условия ночного посещения и возрастные ограничения необходимо уточнить у администратора перед публикацией сайта.'],
-  ['Можно ли прийти своей командой?', 'Да, для этого предусмотрена зона Team Vault на 5 игроков. Всего в Gamer Cave — 32 компьютерных места.'],
+  ['Можно ли прийти своей командой?', `Да, для этого предусмотрена зона Team Vault на 5 игроков. Всего в ${clubConfig.name} — 32 компьютерных места.`],
   ['Как отменить бронь?', 'В рабочей версии отмена должна выполняться через администратора или личный кабинет. В этом макете данные никуда не отправляются.'],
 ] as const
 
@@ -164,5 +164,3 @@ export const seatsByZone: Record<ZoneId, { id: string; occupied: boolean }[]> = 
     occupied: occupiedSeatNumbers.team.includes(index + 1),
   })),
 }
-
-export const TWO_GIS_URL = 'https://2gis.ru/krasnodar/firm/70000001104519509/38.973371%2C45.028125/tab/reviews?m=38.973371%2C45.028125%2F18.11'
