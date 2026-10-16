@@ -38,8 +38,8 @@ pnpm build
 
 ## Публикация
 
-Репозиторий: <https://github.com/qweertyai67-source/projectAI-number-one.>
+Репозиторий: <https://github.com/qweertyai67-source/project-GameCave>
 
-GitHub Pages: <https://qweertyai67-source.github.io/projectAI-number-one./>
+GitHub Pages: <https://qweertyai67-source.github.io/project-GameCave/>
 
 Push в ветку `main` автоматически запускает `.github/workflows/deploy.yml`.

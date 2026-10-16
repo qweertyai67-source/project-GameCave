@@ -30,12 +30,12 @@ Responsive demonstration website for the Gamer Cave computer club in Krasnodar. 
 
 ## Repository and deployment
 
-- Repository: <https://github.com/qweertyai67-source/projectAI-number-one.>
-- Public site: <https://qweertyai67-source.github.io/projectAI-number-one./>
+- Repository: <https://github.com/qweertyai67-source/project-GameCave>
+- Public site: <https://qweertyai67-source.github.io/project-GameCave/>
 - Production branch: `main`
 - Deployment workflow: `.github/workflows/deploy.yml`
 
-The repository name ends with a period, so the Pages URL also contains `projectAI-number-one.`. Vite deliberately uses `base: './'`. Public assets must use relative URLs via `assetUrl`.
+The repository was renamed to `project-GameCave`; the old `projectAI-number-one.` Pages URL is obsolete. Vite deliberately uses `base: './'`. Public assets must use relative URLs via `assetUrl`.
 
 ## Known demo limitations
 
